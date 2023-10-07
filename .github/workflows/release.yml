@@ -31,11 +31,11 @@ jobs:
       uses: marvinpinto/action-automatic-releases@latest
       with:
             title: Manual build
-            automatic_release_tag: continuous
+            automatic_release_tag: manual
             prerelease: false
             draft: false
             files: |
-              bin/privatebin
+              privatebin/bin/privatebin
             repo_token: ${{ github.token }}
     
 
