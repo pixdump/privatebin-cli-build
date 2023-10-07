@@ -1,0 +1,38 @@
+name: Build and Release
+
+permissions:
+  contents: write
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Install Dependencies
+      run: |
+          sudo apt-get update
+          sudo apt install -y gcc golang
+    - name : Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+    - name: Build
+      run: |
+        git clone https://github.com/gearnode/privatebin.git
+        cd privatebin
+        make
+        sudo make build
+    - name: Release
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+            title: Manual build
+            automatic_release_tag: continuous
+            prerelease: false
+            draft: false
+            files: |
+              bin/privatebin
+            repo_token: ${{ github.token }}
+    
+
