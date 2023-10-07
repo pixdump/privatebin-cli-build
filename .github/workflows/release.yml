@@ -4,6 +4,9 @@ permissions:
   contents: write
 
 on: 
+  push:
+    paths:
+      - .github/workflows/release.yml
   workflow_dispatch:
 
 jobs:
@@ -13,7 +16,7 @@ jobs:
     - name: Install Dependencies
       run: |
           sudo apt-get update
-          sudo apt install -y gcc golang
+          sudo apt install -y gcc pandoc
     - name : Set up Go
       uses: actions/setup-go@v4
       with:
